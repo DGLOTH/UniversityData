@@ -497,7 +497,7 @@ public class UniversityData implements Executor {
                     .append("_id", universityId)
                     .append("name", universityName)
                     .append("state", universityState)
-                    .append("rooms", universityRoom)
+                    .append("rooms", universityRooms)
                     .append("sports center", universitySportsCenter)
                     ;
                 BasicDBObject universityDoc = new BasicDBObject()
