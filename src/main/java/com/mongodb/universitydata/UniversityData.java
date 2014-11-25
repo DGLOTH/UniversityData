@@ -485,23 +485,20 @@ public class UniversityData implements Executor {
                 int universityIdx = rnd.nextInt(universityCB.linesRead);
                 String universityName = (String)universityCB.DBObjects.get
                     (universityIdx).get("name");
-                String universityCity = (String)universityCB.DBObjects.get
-                    (universityIdx).get("city");
                 String universityState = (String)universityCB.DBObjects.get
                     (universityIdx).get("state");
-                int universityBeds = rnd.nextInt(280) + 20; // min 20; max 300
+                int universityRooms = rnd.nextInt(2000) + 500; // 500-2500 rms
                 Boolean[] universityBooleans = {true,false};
-                Boolean universityTraumaCenter = universityBooleans[rnd.nextInt(2)];
+                Boolean universitySportsCenter = universityBooleans[rnd.nextInt(2)];
                 BasicDBObject universityQuery = new BasicDBObject()
                     .append("_id", universityId)
                     ;
                 BasicDBObject universityDocFields = new BasicDBObject()
                     .append("_id", universityId)
                     .append("name", universityName)
-                    .append("city", universityCity)
                     .append("state", universityState)
-                    .append("beds", universityBeds)
-                    .append("trauma center", universityTraumaCenter)
+                    .append("rooms", universityRoom)
+                    .append("sports center", universitySportsCenter)
                     ;
                 BasicDBObject universityDoc = new BasicDBObject()
                     .append("$setOnInsert", universityDocFields)
