@@ -292,17 +292,24 @@ public class UniversityData implements Executor {
                 };
                 int submissionTypeIdx = rnd.nextInt(submissionTypes.length);
                 // Resource directory based content file
-                String submissionFile =
-                    "/content/"+contentSubDir+"/"+submissionFiles[submissionTypeIdx];
-                InputStream submissionFileIS =
-                    UniversityData.class.getResourceAsStream(submissionFile);
-                DataInputStream submissionFileDIS =
-                    new DataInputStream(submissionFileIS);
-                int submissionFileLength = submissionFileIS.available();
-                byte[] submissionFileData = new byte[submissionFileLength];
-                submissionFileDIS.readFully(submissionFileData);
-                submissionFileDIS.close();
-                submissionFileIS.close();
+                byte[] submissionFileData = null;
+                int submissionFileLength = 0;
+                if (contentSubDir.equals("tiny")) {
+                    submissionFileData = new byte[2];
+                    submissionFileLength = 1;
+                } else {
+                    String submissionFile =
+                        "/content/"+contentSubDir+"/"+submissionFiles[submissionTypeIdx];
+                    InputStream submissionFileIS =
+                        UniversityData.class.getResourceAsStream(submissionFile);
+                    DataInputStream submissionFileDIS =
+                        new DataInputStream(submissionFileIS);
+                    submissionFileLength = submissionFileIS.available();
+                    submissionFileData = new byte[submissionFileLength];
+                    submissionFileDIS.readFully(submissionFileData);
+                    submissionFileDIS.close();
+                    submissionFileIS.close();
+                }
                 BasicDBObject submissionDoc = new BasicDBObject()
                     .append("_id", submissionId)
                     .append("type", submissionTypes[submissionTypeIdx])
